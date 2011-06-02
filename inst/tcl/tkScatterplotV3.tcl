@@ -164,9 +164,9 @@ proc tk_2d_display {ttID ngInstance ngLinkedInstance dataName viz withImages wit
 
     ## change brush color
     bind $fbrush.c <Double-ButtonRelease-1> {
-
+	set ttID [winfo toplevel %W]
 	set col [%W cget -bg]
-	set new_col [tk_chooseColor -initialcolor $col]
+	set new_col [tk_chooseColor -initialcolor $col -parent $ttID]
 	
 	if {$new_col ne ""} {
 	    set ttID [winfo toplevel %W]
@@ -320,9 +320,11 @@ proc tk_2d_display {ttID ngInstance ngLinkedInstance dataName viz withImages wit
 
 
     $canvas_col bind "color && !bg" <Double-ButtonRelease-1> {
+	
+	set ttID [winfo toplevel %W]
 	set widget [lindex [%W itemcget current -tag] 3]
 	set col [%W itemcget "$widget && dot" -fill]
-	set new_col [tk_chooseColor -initialcolor $col]
+	set new_col [tk_chooseColor -initialcolor $col -parent $ttID]
 
 	if {$new_col ne ""} {
 	    set ttID [winfo toplevel %W]
@@ -345,9 +347,9 @@ proc tk_2d_display {ttID ngInstance ngLinkedInstance dataName viz withImages wit
 
     ## Change Background Color
     $canvas_col bind "color && bg" <Double-ButtonRelease-1> {
-
+	set ttID [winfo toplevel %W]
 	set col [%W itemcget "bg && dot" -fill]
-	set new_col [tk_chooseColor -initialcolor $col]
+	set new_col [tk_chooseColor -initialcolor $col -parent $ttID]
 	
 	
 	if {$new_col ne ""} {
@@ -774,7 +776,7 @@ proc tk_2d_display {ttID ngInstance ngLinkedInstance dataName viz withImages wit
     }
     
     bind $cb_brush <ButtonRelease-1> {
-    	set ttID [winfo toplevel %W]
+    	set ttID [winfo toplevel %W]info ex
     	set ngInstance [$ttID\.ngInstance cget -text]
 	set ngLinkedInstance [$ttID\.ngLinkedInstance cget -text]
     	set dataName [$ttID\.dataName cget -text]
@@ -1639,3 +1641,17 @@ proc change_size {ttID abs val} {
 	## no points selected, 
     }
 }
+
+
+## refresh all display with a certain name
+proc refresh_linked {ngLinkedInstance dataName} {
+    if {[info exists ::ng_windowManager("$ngLinkedInstance\.$dataName\.ttID")]} {
+	foreach tt $::ng_windowManager("$ngLinkedInstance\.$dataName\.ttID") {
+	    set ngInstance [$tt\.ngInstance cget -text]	    
+	    set tviz [$tt\.viz cget -text]
+	    update_displays $tt $ngInstance $dataName $tviz
+	}
+    }
+}
+
+
