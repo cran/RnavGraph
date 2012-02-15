@@ -1,15 +1,16 @@
 Package: RnavGraph
 Type: Package
 Title: Using graphs as a navigational infrastructure.
-Version: 0.1.1
-Date: 2011-06-02
+Version: 0.1.2
+Date: 2012-02-15
 Author: Adrian R. Waddell and R. Wayne Oldford
 Maintainer: Adrian Waddell <adrian@waddell.ch>
-Url: http://adrian.waddell.ch/
-Description: GUI to explore high dimensional data (including image data) using graphs as navigational infrastructure.
+Url: http://www.navgraph.com
+Description: GUI to explore high dimensional data (including image
+        data) using graphs as navigational infrastructure.
 License: GPL-2
 Suggests: PairViz, scagnostics, rgl, grid, MASS, rggobi, RGtk2, hexbin,
-        RDRToolbox, vegan, RnavGraphImageData
+        RDRToolbox, vegan, RnavGraphImageData, png, Rgraphviz
 Depends: R (>= 2.10.0), methods, graphics, tcltk, graph
 Imports: RBGL
 LazyLoad: yes
@@ -19,6 +20,6 @@ Collate: 'AllGenerics.R' 'ng_data.R' 'ng_graph.R' 'ng_path.R'
         'Viz2D_Ggobi.R' 'Viz2D_Axis.R' 'Viz2D_tk2d.R'
         'FunctionNavGraph.R' 'graphtools.R' 'navGraph.R' 'scagNav.R'
         'zzz.R'
-Packaged: 2011-11-22 01:59:52 UTC; adrian
+Packaged: 2012-02-17 12:21:03 UTC; adrian
 Repository: CRAN
-Date/Publication: 2011-11-22 08:45:17
+Date/Publication: 2012-02-17 17:18:29
