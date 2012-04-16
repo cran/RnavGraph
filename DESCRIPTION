@@ -1,8 +1,8 @@
 Package: RnavGraph
 Type: Package
 Title: Using graphs as a navigational infrastructure.
-Version: 0.1.2
-Date: 2012-02-15
+Version: 0.1.3
+Date: 2012-04-16
 Author: Adrian R. Waddell and R. Wayne Oldford
 Maintainer: Adrian Waddell <adrian@waddell.ch>
 Url: http://www.navgraph.com
@@ -20,6 +20,6 @@ Collate: 'AllGenerics.R' 'ng_data.R' 'ng_graph.R' 'ng_path.R'
         'Viz2D_Ggobi.R' 'Viz2D_Axis.R' 'Viz2D_tk2d.R'
         'FunctionNavGraph.R' 'graphtools.R' 'navGraph.R' 'scagNav.R'
         'zzz.R'
-Packaged: 2012-02-17 12:21:03 UTC; adrian
+Packaged: 2012-04-22 22:08:02 UTC; adrian
 Repository: CRAN
-Date/Publication: 2012-02-17 17:18:29
+Date/Publication: 2012-04-23 05:50:58
