@@ -1,6 +1,6 @@
-3673d9d195109d07e3b01eaa77b502b3 *DESCRIPTION
-c2013f30dbf0baba1aaccacd9a1f38d5 *NAMESPACE
-5b6dd643e175d892e1b82c7801aaad86 *NEWS
+f037f8689143cd9ea34229b3c8d7a827 *DESCRIPTION
+5b39e9968c18a7b751e916a7b03c74e8 *NAMESPACE
+1e3ace04f95721594b2da8d30d2ba947 *NEWS
 2eb21102bd24f42a9eaa379c87aa36e3 *R/AllGenerics.R
 1eae90f5511b1e0227466cecb11e61a3 *R/FunctionNavGraph.R
 698183f7c8d7f656c8bda9b23251958c *R/GraphDisplay.R
@@ -14,7 +14,7 @@ c023105f8b05388c4f44f5e8c119075b *R/Viz2D_Axis.R
 61f8b9c6b01a6ebe5c5c0da86e9fbd37 *R/graphtools.R
 f0ec55cb22b91af3918f70c881e7bac1 *R/navGraph.R
 e2046071e11a654375f749ae3f73a299 *R/ng_data.R
-341f0517b37a67c8a4f3a8f23e910459 *R/ng_graph.R
+1e76a8f29b2bc71a8f7939479d81b2ea *R/ng_graph.R
 b329d41fa64771577a44a16fadf604a7 *R/ng_image.R
 a99f1c3a3c7c5bab62790b432ad4e06c *R/ng_path.R
 2df6ec796522c5881afa798e4091d435 *R/scagNav.R
@@ -37,7 +37,7 @@ e6195073c4c1053f62f75299ab46dc34 *demo/ng_2d_myplot_grid.R
 893374fbe4c8212a0239feb08c2cdaaa *demo/ng_2d_scagnostics_olive.R
 ff1cda694de51a83619676e3aca1c099 *demo/ng_own_viz.R
 0a75373364cfcf4acae0aa67e48c3533 *inst/doc/RnavGraph.Rnw
-2d8fce94c6d4f91b52d024f833d9a8b2 *inst/doc/RnavGraph.pdf
+f0de3a26602f3fc3fcaaa5b03547e2da *inst/doc/RnavGraph.pdf
 b32561c5cecdc451ee9a893f3efecd4b *inst/tcl/GraphDisplay.tcl
 ffbe67dcab0a0c7cf371524ffcba5a4d *inst/tcl/tkScatterplotV1.tcl
 94bfc13ab09e12cfb4bbc2b23e0f4c05 *inst/tcl/tkScatterplotV3.tcl
