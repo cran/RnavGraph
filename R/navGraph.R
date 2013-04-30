@@ -1,4 +1,22 @@
 navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
+	## omit no visible binding note
+	t.vizcounter <- NULL
+	g <- NULL
+	Glist <- NULL
+
+
+	##
+	## removed GGobi
+	##
+	## Start Rgobi if there is an NG_Scatterplot object in the vizList
+	if(!is.null(settings) && is.list(settings) && !is.null(settings$defaultDisplay)){
+		if(tolower(settings$defaultDisplay)=="ggobi"){
+			stop("navGraph: as from RnavGraph version 0.1.6 ggobi is not supported anymore!")					
+		}
+	}
+
+
+
 	##
 	## RnavGraph can be started by
 	## - either passing by a navGraph handler
@@ -13,7 +31,6 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 		##.Tcl('set ng_windowManager ""')
 		
 	}else if(is(data, "NavGraph_handler")){
-		
 		
 		## if navgraph handler gets passed by
 		graphList <- data@graphs
@@ -103,7 +120,7 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 				vizList <- vector("list", length = 2*n)
 				
 				if(is.null(names(GList))){
-					graph_names <- paste('g',1:length(glist), sep = '')
+					graph_names <- paste('g',1:length(Glist), sep = '')
 				} else {
 					graph_names <- names(GList)
 				}
@@ -177,18 +194,10 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 				dataList <- data
 			}
 			if(!all(sapply(dataList, FUN=function(x){is(x,"NG_data")}))) {
-				stop("[navGraph] some elements in list data are not from class NG_data")
+				stop("[navGraph] some elements in list data are nGlistot from class NG_data")
 			}
 			
-			## tk2d windows?
-			if(!is.null(settings$defaultDisplay)) {
-				defaultDisplay <- tolower(settings$defaultDisplay)
-				if(!(defaultDisplay %in% c("ggobi","tk2d"))) {
-					stop("[navGraph] settings argument defaultDevice must be either tk2d or ggobi.")
-				}
-			} else {
-				defaultDisplay <- "tk2d"
-			}
+	
 			
 			
 			out <- unlist(lapply(dataList, FUN=function(data){
@@ -202,13 +211,9 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 								ng.lg <- ng_graph(name = paste(data@name,': 3D'), graph = LG, layout = 'circle')
 								ng.lgnot <- ng_graph(name = paste(data@name,': 4D'), graph = LGnot, layout = 'circle')
 								
-								if(defaultDisplay == "tk2d"){
-									viz1 <- ng_2d(data,ng.lg)
-									viz2 <- ng_2d(data,ng.lgnot)
-								} else{
-									viz1 <- ng_2d_ggobi(data,ng.lg)
-									viz2 <- ng_2d_ggobi(data,ng.lgnot)
-								}
+								viz1 <- ng_2d(data,ng.lg)
+								viz2 <- ng_2d(data,ng.lgnot)
+			
 								return(list(ng.lg,ng.lgnot,viz1,viz2))
 							}))
 			
@@ -336,7 +341,8 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 		assign(paste('graph',i,sep=''), graphList[[i]], envir = ngEnv)
 	}
 	cGraph <- 'graph1' ## active graph
-	graph <- graph1	   ## physical active graph
+	assign('graph', get(cGraph)) ## physical active graph	
+
 	
 	
 	
@@ -414,51 +420,51 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 				tkitemconfigure(ngEnv$canvas,'edge && graph', fill=ngEnv$settings@color@notVisitedEdge)
 				tkdtag(ngEnv$canvas, 'all', 'visited')
 			})
-	tkadd(fileMenu,"command", label="Save navGraph Handler", command=function(){				
-				ttwin <- tktoplevel()
-				tktitle(ttwin) <- "Save a navGraph handler"
-				loc <- .tcl2str(tkwm.geometry(ngEnv$tt))
-				loc1 <- unlist(strsplit(loc,split = '+',  fixed = TRUE))
-				tkwm.geometry(ttwin,paste("+",as.numeric(loc1[2])+30,"+",as.numeric(loc1[3])+150,sep=""))			
-				tkgrab(ttwin)
-				tkpack(tkframe(ttwin, height = 10),side = "top")
-				l <- tklabel(ttwin, text = "Save the navGraph handler in the global environment as:")
-				tkpack(l,side = "top", anchor = "w", padx = 5)
-				entry <- tkentry(ttwin)
-				tkpack(entry, side = "top", fill = "x",padx = 5, pady = 5)
-				f.b <- tkframe(ttwin)
-				tkpack(f.b, side = "top", padx = 5)
-				tkpack(tkframe(ttwin, height = 5),side = "top")
-				bok <- tkbutton(f.b,text="OK", command=function(){.save()})
-				bcan <- tkbutton(f.b,text="Cancel", command=function(){tkdestroy(ttwin)})
-				tkpack(bok,bcan, side = "left", anchor = "center", padx = 10)
-				tkfocus(entry)
-				tkbind(entry,"<Return>",function(){.save()})
-				.save <- function(){
-					varName <- .tcl2str(tkget(entry))
-					if (length(varName) != 0) {
-						if (varName %in% ls(.GlobalEnv)) {
-							if (tk_messageBox("yesno",paste('Variable "',varName,'" already exists. Overwrite it?',sep=""), parent = ttwin) == "yes") {
-								cat(paste("Session", ngEnv$ng_instance,"navGraph handler saved (overwritten) as:",varName,'\n'))
-								assign(varName, new("NavGraph_handler", env = ngEnv, ggobi = NULL,
-												graphs = graphList, data = dataList, viz = vizList,
-												settings = settings, paths = paths, activePath = tclvalue(activePath),
-												activePathGraph = tclvalue(activePathGraph), dateCreated = date(),
-												dateUpdated = "not"), envir = .GlobalEnv)
-								tkdestroy(ttwin)
-							}
-						} else {
-							cat(paste("Session", ngEnv$ng_instance, "navGraph handler saved as:",varName,'\n'))
-							assign(varName, new("NavGraph_handler", env = ngEnv, ggobi = NULL,
-											graphs = graphList, data = dataList, viz = vizList,
-											settings = settings, paths = paths, activePath = tclvalue(activePath),
-											activePathGraph = tclvalue(activePathGraph), dateCreated = date(),
-											dateUpdated = "not"), envir = .GlobalEnv)
-							tkdestroy(ttwin)
-						}
-					}
-				}
-			})
+#	tkadd(fileMenu,"command", label="Save navGraph Handler", command=function(){				
+#				ttwin <- tktoplevel()
+#				tktitle(ttwin) <- "Save a navGraph handler"
+#				loc <- .tcl2str(tkwm.geometry(ngEnv$tt))
+#				loc1 <- unlist(strsplit(loc,split = '+',  fixed = TRUE))
+#				tkwm.geometry(ttwin,paste("+",as.numeric(loc1[2])+30,"+",as.numeric(loc1[3])+150,sep=""))			
+#				tkgrab(ttwin)
+#				tkpack(tkframe(ttwin, height = 10),side = "top")
+#				l <- tklabel(ttwin, text = "Save the navGraph handler in the global environment as:")
+#				tkpack(l,side = "top", anchor = "w", padx = 5)
+#				entry <- tkentry(ttwin)
+#				tkpack(entry, side = "top", fill = "x",padx = 5, pady = 5)
+#				f.b <- tkframe(ttwin)
+#				tkpack(f.b, side = "top", padx = 5)
+#				tkpack(tkframe(ttwin, height = 5),side = "top")
+#				bok <- tkbutton(f.b,text="OK", command=function(){.save()})
+#				bcan <- tkbutton(f.b,text="Cancel", command=function(){tkdestroy(ttwin)})
+#				tkpack(bok,bcan, side = "left", anchor = "center", padx = 10)
+#				tkfocus(entry)
+#				tkbind(entry,"<Return>",function(){.save()})
+#				.save <- function(){
+#					varName <- .tcl2str(tkget(entry))
+#					if (length(varName) != 0) {
+#						if (varName %in% ls(.GlobalEnv)) {
+#							if (tk_messageBox("yesno",paste('Variable "',varName,'" already exists. Overwrite it?',sep=""), parent = ttwin) == "yes") {
+#								cat(paste("Session", ngEnv$ng_instance,"navGraph handler saved (overwritten) as:",varName,'\n'))
+#								assign(varName, new("NavGraph_handler", env = ngEnv,
+#												graphs = graphList, data = dataList, viz = vizList,
+#												settings = settings, paths = paths, activePath = tclvalue(activePath),
+#												activePathGraph = tclvalue(activePathGraph), dateCreated = date(),
+#												dateUpdated = "not"), envir = .GlobalEnv)
+#								tkdestroy(ttwin)
+#							}
+#						} else {
+#							cat(paste("Session", ngEnv$ng_instance, "navGraph handler saved as:",varName,'\n'))
+#							assign(varName, new("NavGraph_handler", env = ngEnv,
+#											graphs = graphList, data = dataList, viz = vizList,
+#											settings = settings, paths = paths, activePath = tclvalue(activePath),
+#											activePathGraph = tclvalue(activePathGraph), dateCreated = date(),
+#											dateUpdated = "not"), envir = .GlobalEnv)
+#							tkdestroy(ttwin)
+#						}
+#					}
+#				}
+#			})
 	
 	tkadd(fileMenu,"separator")
 	tkadd(fileMenu,"command",label="Quit",command=function(){
@@ -827,100 +833,7 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 	tkconfigure(progress.label, text = "Visualize Data")
 	tkconfigure(progress, value = "50")
 	
-	##
-	## with GGobi
-	##
-	## Start Rgobi if there is an NG_Scatterplot object in the vizList
-	isGGobiUsed <- any(sapply(vizList,function(x)is(x,"NG_Viz2D_Ggobi")))
-	if(isGGobiUsed){
-		ngEnv$g <- ggobi()  ## GGobi handler
-		
-		t.data <- unique(unlist(sapply(vizList,function(viz){
-									if(is(viz,"NG_Viz2D_Ggobi")){
-										return(viz@data)        
-									}else{
-										return()
-									}
-								})))
-		
-		for(i in t.data){
-			x <- which(dataNames == i)
-			ngEnv$g[i] <- as.data.frame(dataList[[x]]@data)  ## coerce to data.frame object
-			
-			
-			
-			## color data if group was defined
-			if(length(dataList[[x]]@group)>0){
-				## color, type, size
-				
-				## check on format of group string
-				if(all(grepl("^c[1-9];t[1-7];s[1-8]$",dataList[[x]]@group))){ ## restore old one
-					glyph_color(ngEnv$g[i]) <- as.numeric(substr(dataList[[x]]@group,2,2))
-					glyph_type(ngEnv$g[i]) <- as.numeric(substr(dataList[[x]]@group,5,5))
-					glyph_size(ngEnv$g[i]) <- as.numeric(substr(dataList[[x]]@group,8,8))
-					
-				}else{
-					
-					ndiff <- 9*7*8 ## col * type * size
-					
-					group <- dataList[[x]]@group
-					groupL <- unique(dataList[[x]]@group)
-					
-					ngroups <- length(groupL)
-					n <- length(group)
-					
-					if(ngroups>ndiff) {
-						warning("[navGraph] there are more groups than rggobi has different glyphs.")
-					}	
-					
-					col <- rep(1,n); siz <- rep(1,n); typ <- rep(1,n)
-					
-					gcol <- 1; gsiz <- 1; gtyp <- 1
-					
-					for(kk in 1:ngroups) {
-						jj <- (groupL[kk] == group)
-						
-						col[jj] <- gcol
-						typ[jj] <- gtyp
-						siz[jj] <- gsiz
-						
-						gcol <- gcol + 1
-						if(gcol > 9) {
-							gcol <- 1
-							gtyp <- gtyp + 1
-							if(gtyp > 7) {
-								gtyp <- 1
-								gsiz <- gsiz + 1
-								if(gsiz > 8) {
-									break
-								}
-							}
-						}
-					}
-					otyp <- 6 ## offset, 6 instead of 1
-					osiz <- 3 ## offset, 3 instead of 1
-					
-					## change type 1 with 5
-					jj <- typ == 3
-					typ[typ == 7] <- 3
-					typ[jj] <- 7
-					
-					glyph_color(ngEnv$g[i]) <- col
-					glyph_type(ngEnv$g[i]) <- (typ + otyp-2)%%7 + 1
-					glyph_size(ngEnv$g[i]) <- (siz + osiz-2)%%8	+ 1				
-					
-				}
-				
-			}
-		}
-		
-		## close all GGobi displays
-		invisible(sapply(displays.GGobi(ngEnv$g),function(x)close.GGobiDisplay(x)))
-		
-		
-	}else{
-		ngEnv$g <- NULL
-	}
+
 	
 	tkconfigure(progress.label, text = "Scale Data")
 	tkconfigure(progress, value = "70")
@@ -1190,7 +1103,6 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 		## Create and return the navGraph Handler
 		ng <- new("NavGraph_handler",
 				env = ngEnv,
-				ggobi = NULL,
 				graphs = graphList,
 				data = dataList,
 				viz = vizList,
@@ -1209,9 +1121,6 @@ navGraph <- function(data, graph = NULL, viz = NULL, settings = NULL) {
 		ng <- data
 		ng@env <- ngEnv
 		ng@dateUpdated <- date()
-	}
-	if(isGGobiUsed == TRUE){
-		ng@ggobi <- g
 	}
 	
 	isDestoying <- FALSE

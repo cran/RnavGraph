@@ -54,7 +54,7 @@ setMethod(
     ## random, kamadaKawaiSpring and fruchtermanReingold kamadaKawaiSpring and fruchtermanReingold currently not
     ## working for RBGL 1.32.1
     if(type %in% c("kamadaKawaiSpring", "fruchtermanReingold", "random")) {
-      message(paste("Note: For graph \"", graph@name, "\" the ", type, " layout is temporarily not supported by the RBGL package, circle layout is used instead", sep =""))
+      message(paste("Note: For graph \"", graph@name, "\": the ", type, " layout is temporarily not supported by the RBGL package, circle layout is used instead.", sep =""))
       type <- "circle"
     }
     
