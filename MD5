@@ -1,6 +1,6 @@
-c54809bc4e7807959c5a9dd86a6da551 *DESCRIPTION
-6a14db7cc8097e92b8d93cfa85760f7e *NAMESPACE
-aa565e66947563bd650e0f920b8f024c *NEWS
+5086613ce228e2b3ceb39c3fe84bb33a *DESCRIPTION
+fad11f7c2a4d7029dcb64f0ead66e1be *NAMESPACE
+0483ac08843696d7dfb9b315973da097 *NEWS
 a8792d5defa2c69f87af0efea687c07d *R/AllGenerics.R
 904cbdf2af17ee20b4c0f5f078ccb6ee *R/FunctionNavGraph.R
 698183f7c8d7f656c8bda9b23251958c *R/GraphDisplay.R
@@ -16,8 +16,9 @@ e2046071e11a654375f749ae3f73a299 *R/ng_data.R
 ff25fae7f73a3b0fcc6271cd043e8f7e *R/ng_graph.R
 b329d41fa64771577a44a16fadf604a7 *R/ng_image.R
 c5284b5814b51d24d1adbf91bb6b90fa *R/ng_path.R
-1863019f0ad71b4ebbfcd82413b9d5c8 *R/scagNav.R
-bc2dba5306e628a494cc998452fa34ff *R/zzz.R
+0d65fda5b24c4d5b6b046c6c830122fd *R/scagNav.R
+b83342b6ab4e0d5c51166cc80e06327e *R/zzz.R
+85a51436ac133e16c478b5973bb22ea7 *build/vignette.rds
 05fa39a7aa4a291f0106a0d5c0f1af5f *data/olive.rda
 4c65ddaaa2d9011f2f2ecf1ced77cc38 *demo/00Index
 f6bed440461ba5b5119b13ea84486afe *demo/ng_2d_image_files_aloi.R
@@ -37,7 +38,7 @@ e6195073c4c1053f62f75299ab46dc34 *demo/ng_2d_myplot_grid.R
 ff1cda694de51a83619676e3aca1c099 *demo/ng_own_viz.R
 1e57c84bfa0d514d042653b1d00b1ac6 *inst/doc/RnavGraph.R
 4ccb696dcd8b9f73619624d56389c92e *inst/doc/RnavGraph.Rnw
-5bfea262f5675973d550f035c7fc77c9 *inst/doc/RnavGraph.pdf
+c862f01f58bdbf821635964bbe5be0bf *inst/doc/RnavGraph.pdf
 b32561c5cecdc451ee9a893f3efecd4b *inst/tcl/GraphDisplay.tcl
 ffbe67dcab0a0c7cf371524ffcba5a4d *inst/tcl/tkScatterplotV1.tcl
 94bfc13ab09e12cfb4bbc2b23e0f4c05 *inst/tcl/tkScatterplotV3.tcl
@@ -76,7 +77,7 @@ a16503ca5c2bb93b79dee96dcb59421d *man/ng_update.Rd
 bdf78bafb92240d4cc24ff5bbf26ebe0 *man/ng_walk.Rd
 28ccdf988d3266fda946af0b3194b1ce *man/olive.Rd
 ab2b7ff735a7776a1e0fe2ee31e6a1e7 *man/plot-methods.Rd
-9ded80e93764dc7ac61e3791ab3d3419 *man/scagEdgeWeights.Rd
+4607d5039841581ac412a5d4dc2a6728 *man/scagEdgeWeights.Rd
 af1140459efe391285be1eff17bb98d0 *man/scagGraph.Rd
 69f6d1ec6b0bfbbbfdd34b518406a59f *man/scagNav.Rd
 634f5e9a30cd2a7304ace56f83e4b7cd *man/shortnames-methods.Rd

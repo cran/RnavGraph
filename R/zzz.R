@@ -15,24 +15,24 @@
 	tclfile <- file.path(find.package(package = pkgname, lib.loc = libname),"tcl", "tkScatterplotV3.tcl")
 	tcl("source", tclfile)
 	
-	## load Img tk extension
-	sysname <- Sys.info()[1]
-	didLoad <- TRUE
-	if (sysname == "Darwin") {
-		addTclPath("/System/Library/Tcl")
-		didLoad <- tclRequire('Img')
-	} else {
-		didLoad <- tclRequire('Img')
-	}
-	
-	if(identical(didLoad,FALSE)) {
-		warning("Can not load the tk Img extension. Hence you can not use the 'ng_image_files' R function. Read the package vignette on how to set up tcl/tk.")	
-	}
-	
 }
 
 .onAttach <- function(libname, pkgname) {
 	packageStartupMessage("\nRnavGraph Version ",
 			utils::packageDescription(pkg = pkgname, lib.loc = libname, field="Version"),
-			'\nPlease read the package vignette. Use vignette("RnavGraph").\n\n')	
+			'\nPlease read the package vignette. Use vignette("RnavGraph").\n\n')
+
+        ## load Img tk extension if available
+	sysname <- Sys.info()[1]
+	didLoad <- TRUE
+	if (sysname == "Darwin") {
+            addTclPath("/System/Library/Tcl")
+            didLoad <- tclRequire('Img')
+	} else {
+            didLoad <- tclRequire('Img')
+	}
+	
+	if(identical(didLoad,FALSE)) {
+            packageStartupMessage("Can not load the tk Img extension. Hence you can not use the 'ng_image_files' R function. Read the package vignette on how to set up tcl/tk.")	
+	}
 }

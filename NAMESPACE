@@ -5,6 +5,9 @@ import(graph)
 import(methods)
 ##importFrom(RBGL,kamadaKawaiSpringLayout,fruchtermanReingoldForceDirectedLayout)
 
+importFrom(scagnostics, scagnostics, scagnostics.data.frame)
+importFrom(rgl, rgl.set, rgl.close, rgl.open, rgl.cur)
+
 ## exports
 	export(
 		navGraph,

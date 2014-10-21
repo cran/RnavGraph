@@ -1,3 +1,8 @@
+October 2014, Version 0.1.7
+---------------------------
+* change warnings() to packageStartupMessage() in .onLoad and then
+  moved the Img Tcl package loading part to .onAttach.
+
 April 2013, Version 0.1.6
 -------------------------
 * Removed ggobi support
