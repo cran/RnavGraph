@@ -124,7 +124,7 @@ ng.iris <- ng_data(name = "iris", data = iris[,1:4],
    interaction=list(NSteps=11)))}
 
 ## navGraph session, data is not linked
-\donttest{nav3 <- navGraph(ng.iris, settings=list(tk2d=list(linked=FALSE))}
+\donttest{nav3 <- navGraph(ng.iris, settings=list(tk2d=list(linked=FALSE)))}
 
 
 

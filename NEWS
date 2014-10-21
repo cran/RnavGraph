@@ -1,3 +1,8 @@
+December 2014, Version 0.1.8
+----------------------------
+* Missing parentheses fix in the navGraph examples.
+* Compressed vignette images to reduce package size.
+
 October 2014, Version 0.1.7
 ---------------------------
 * change warnings() to packageStartupMessage() in .onLoad and then
